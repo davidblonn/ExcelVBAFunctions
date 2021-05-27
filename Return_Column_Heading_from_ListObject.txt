@@ -1,0 +1,32 @@
+Option Explicit
+
+Dim TableHeader As String
+Dim b As Boolean
+Dim xlSheet As Worksheet
+Dim lstObj As ListObject
+
+Public Sub GetTableHeader()
+
+b = ListObjectActive
+
+    If b = True Then
+        TableHeader = Intersect(ActiveCell.ListObject.HeaderRowRange, ActiveCell.EntireColumn).Value
+        MsgBox TableHeader
+    Else
+        MsgBox "listobject not-active"
+    End If
+
+End Sub
+
+Public Function ListObjectActive() As Boolean
+
+Set xlSheet = ActiveWorkbook.Worksheets(1)
+Set lstObj = xlSheet.ListObjects(1)
+
+    If lstObj.Active = False Then
+        ListObjectActive = lstObj.Active
+    Else
+        ListObjectActive = True
+    End If
+
+End Function
